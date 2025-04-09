@@ -1,11 +1,10 @@
 name: 'Terraform Plan Apply'
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
+  workflow_run:
+    workflows: ["terraform_test"] 
+    types:
+      - completed
 env:
   ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
   ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
