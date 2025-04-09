@@ -2,9 +2,10 @@ name: 'Terraform Plan Apply'
 
 on:
   workflow_run:
-    workflows: ["terraform_test"] 
+    workflows: ["Terraform Test"] 
     types:
       - completed
+
 env:
   ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
   ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
@@ -56,9 +57,6 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
-
-      - name: Terraform Init
-        run: terraform init
 
       - name: Download Terraform Plan Artifact
         uses: actions/download-artifact@v3
