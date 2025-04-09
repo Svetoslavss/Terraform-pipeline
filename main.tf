@@ -22,17 +22,16 @@ resource "azurerm_resource_group" "arg" {
   location = "North Europe"
 }
 
-resource "azurerm_storage_account" "example" {
-name = "taskboard"
-resource_group_name = ${var.resource_group_name}
-location = azurerm_resource_group.arg.location
-account_tier = "Standard"
-account_replication_type = "LRS"
+resource "azurerm_storage_account" "acc_storage" {
+  name                     = "taskboard-storage"
+  resource_group_name      = azurerm_resource_group.arg.name
+  location                 = azurerm_resource_group.arg.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
 
-tags = {
-environment = "staging"
-}
-
+  tags = {
+    environment = "staging"
+  }
 }
 
 resource "azurerm_linux_web_app" "lwapp" {
