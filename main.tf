@@ -23,7 +23,7 @@ resource "azurerm_resource_group" "arg" {
 }
 
 resource "azurerm_storage_account" "acc_storage" {
-  name                     = "taskboardstorage"
+  name                     = "taskboardstorage${random_integer.random.result}"
   resource_group_name      = azurerm_resource_group.arg.name
   location                 = azurerm_resource_group.arg.location
   account_tier             = "Standard"
