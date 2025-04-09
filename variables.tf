@@ -47,3 +47,13 @@ variable "branch_name" {
   type        = string
   description = "The branch of github repository"
 }
+
+variable "storage_account" {
+  type        = string
+  description = "Storage account name"
+}
+
+variable "storage_container" {
+  type        = string
+  description = "Container name to store files"
+}

@@ -5,6 +5,12 @@ terraform {
       version = "=4.24.0"
     }
   }
+  backend "azurerm" {
+    resource_group_name  = "StorageRG"
+    storage_account_name = var.storage_account.name
+    container_name       = var.container_name.name
+    key                  = "terraform.tfstate"
+  }
 }
 
 provider "azurerm" {
@@ -20,18 +26,6 @@ resource "random_integer" "random" {
 resource "azurerm_resource_group" "arg" {
   name     = "${var.resource_group_name}-${random_integer.random.result}" # Use 'result' here
   location = "North Europe"
-}
-
-resource "azurerm_storage_account" "acc_storage" {
-  name                     = "taskboardstorage${random_integer.random.result}"
-  resource_group_name      = azurerm_resource_group.arg.name
-  location                 = azurerm_resource_group.arg.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-
-  tags = {
-    environment = "staging"
-  }
 }
 
 resource "azurerm_linux_web_app" "lwapp" {
